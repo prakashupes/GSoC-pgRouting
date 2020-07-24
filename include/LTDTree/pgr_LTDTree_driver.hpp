@@ -53,7 +53,7 @@ namespace pgrouting {
         public:
             typedef typename G::V Vertex;
             typedef typename G::E_i E_i;
-         
+            typedef typename G::V_i V_i;
             typedef pair<int64_t , int64_t> edge; //For making edge list to be used in extract vertices
             vector<edge> edgeList;
             std::vector<pgr_ltdtree_rt> results;
@@ -65,7 +65,7 @@ namespace pgrouting {
                     ){
                    const int64_t numOfVertices=graph.num_vertices();
                   
-               
+               log <<"numOfVertices "<<numOfVertices;
                
                    // Lengauer-Tarjan dominator tree algorithm
                    auto v_root(graph.get_V(root));
@@ -77,8 +77,21 @@ namespace pgrouting {
 
 
 
-                return results;
+
+
+            V_i v, vend;
+
+         // iterate through every vertex in the graph
+         for (boost::tie(v, vend) = vertices(graph.graph); v != vend; ++v) {
+             int64_t node = graph[*v].id;
+             int64_t color = domTreePredVector[*v];
+             log<<"\n"<<node<<" "<<color<<" ";
+             
+
+                
             }
+            return results;
+                    }
         };
     }
 }
